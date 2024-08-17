@@ -31,14 +31,11 @@ export default function Dashboard({ auth, posts }) {
     };
 
     const refresh = () =>
-        router.visit(
-            route("posts.index"),
-            {},
-            {
-                only: ["posts"],
-                preserveScroll: true,
-            }
-        );
+        router.visit(route("posts.index"), {
+            only: ["posts"],
+            preserveScroll: true,
+            preserveState: true,
+        });
 
     return (
         <AuthenticatedLayout
