@@ -14,4 +14,9 @@ class PostController extends Controller
         $posts = Posts::with('user')->get();
         return Inertia::render('Posts/Index', ['posts' => PostResource::collection($posts)]);
     }
+
+    public function store(Request $request)
+    {
+        dd($request->all());
+    }
 }
