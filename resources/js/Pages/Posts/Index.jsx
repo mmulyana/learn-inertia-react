@@ -1,5 +1,5 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, useForm } from "@inertiajs/react";
+import { Head, Link, router, useForm } from "@inertiajs/react";
 
 export default function Dashboard({ auth, posts }) {
     const { data, setData, post, processing, errors, reset, clearErrors } =
@@ -15,6 +15,16 @@ export default function Dashboard({ auth, posts }) {
             },
         });
     };
+
+    const refresh = () =>
+        router.visit(
+            route("posts.index"),
+            {},
+            {
+                only: ["posts"],
+                preserveScroll: true,
+            }
+        );
 
     return (
         <AuthenticatedLayout
@@ -62,6 +72,22 @@ export default function Dashboard({ auth, posts }) {
                             {processing ? "Loading..." : "Post"}
                         </button>
                     </form>
+                    <div className="flex justify-center gap-4 items-center">
+                        <button
+                            className="px-4 py-2 rounded-md bg-gray-700 text-white"
+                            onClick={refresh}
+                        >
+                            Refresh
+                        </button>
+                        <Link
+                            className="px-4 py-2 rounded-md bg-gray-700 text-white"
+                            href={route("posts.index")}
+                            only={["posts"]}
+                            preserveScroll
+                        >
+                            Refresh By Link
+                        </Link>
+                    </div>
                     {!!posts.data.length &&
                         posts?.data?.map((post) => (
                             <div
