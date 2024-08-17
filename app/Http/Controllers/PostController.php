@@ -2,21 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePostRequest;
 use App\Http\Resources\PostResource;
 use App\Models\Posts;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class PostController extends Controller
 {
     public function index()
     {
-        $posts = Posts::with('user')->get();
+        $posts = Posts::with('user')->latest()->get();
         return Inertia::render('Posts/Index', ['posts' => PostResource::collection($posts)]);
     }
 
-    public function store(Request $request)
+    public function store(StorePostRequest $request)
     {
-        dd($request->all());
+        auth()->user()->posts()->create(
+            $request->validated()
+        );
+
+        return redirect()->route('posts.index');
     }
 }

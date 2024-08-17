@@ -40,6 +40,11 @@ export default function Dashboard({ auth, posts }) {
                             onChange={(e) => setData("body", e.target.value)}
                             className="border-gray-300 focus:border-indigo-500 focus:ring-indigo-400 rounded-sm shadow-sm w-full"
                         ></textarea>
+                        {errors.body && (
+                            <p className="text-red-500 text-sm">
+                                {errors.body}
+                            </p>
+                        )}
                         <button
                             type="submit"
                             className="mt-2 bg-gray-700 px-4 py-2 rounded-md font-medium text-white"
