@@ -1,5 +1,6 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, Link, router, useForm } from "@inertiajs/react";
+import { Head, Link, router, useForm, usePage } from "@inertiajs/react";
+import { useEffect } from "react";
 import toast from "react-hot-toast";
 
 export default function Dashboard({ auth, posts }) {
@@ -8,12 +9,23 @@ export default function Dashboard({ auth, posts }) {
             body: "",
         });
 
+    const page = usePage();
+
+    useEffect(() => {
+        if (page?.props?.response?.body) {
+            toast(page.props.response.body, {
+                type: page.props.response.type,
+                position: "top-right",
+            });
+        }
+    }, [page.props?.response]);
+
     const submit = (e) => {
         e.preventDefault();
         post(route("posts.store"), {
             onSuccess: () => {
                 reset();
-                toast.success("success create post");
+                // toast.success("success create post");
             },
         });
     };
