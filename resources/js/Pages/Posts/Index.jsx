@@ -1,5 +1,6 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, router, useForm } from "@inertiajs/react";
+import toast from "react-hot-toast";
 
 export default function Dashboard({ auth, posts }) {
     const { data, setData, post, processing, errors, reset, clearErrors } =
@@ -12,6 +13,7 @@ export default function Dashboard({ auth, posts }) {
         post(route("posts.store"), {
             onSuccess: () => {
                 reset();
+                toast.success("success create post");
             },
         });
     };
