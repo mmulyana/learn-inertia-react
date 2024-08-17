@@ -2,13 +2,17 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, useForm } from "@inertiajs/react";
 
 export default function Dashboard({ auth, posts }) {
-    const { data, setData, post, processing, errors } = useForm({
+    const { data, setData, post, processing, errors, reset, clearErrors } = useForm({
         body: "",
     });
 
     const submit = (e) => {
         e.preventDefault();
-        post(route("posts.store"));
+        post(route("posts.store"), {
+            onSuccess: () => {
+                reset();
+            },
+        });
     };
 
     return (
@@ -36,6 +40,7 @@ export default function Dashboard({ auth, posts }) {
                             id="body"
                             cols="30"
                             rows="5"
+                            onFocus={() => clearErrors('body')}
                             value={data.body}
                             onChange={(e) => setData("body", e.target.value)}
                             className="border-gray-300 focus:border-indigo-500 focus:ring-indigo-400 rounded-sm shadow-sm w-full"
