@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 
 export default function Dashboard({ auth, posts }) {
     const { data, setData, post, processing, errors, reset, clearErrors } =
-        useForm({
+        useForm("postForm", {
             body: "",
         });
 
