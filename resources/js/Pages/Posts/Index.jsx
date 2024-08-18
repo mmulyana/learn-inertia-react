@@ -11,21 +11,11 @@ export default function Dashboard({ auth, posts }) {
 
     const page = usePage();
 
-    useEffect(() => {
-        if (page?.props?.response?.body) {
-            toast(page.props.response.body, {
-                type: page.props.response.type,
-                position: "top-right",
-            });
-        }
-    }, [page.props?.response]);
-
     const submit = (e) => {
         e.preventDefault();
         post(route("posts.store"), {
             onSuccess: () => {
                 reset();
-                // toast.success("success create post");
             },
         });
     };
@@ -49,7 +39,7 @@ export default function Dashboard({ auth, posts }) {
             <Head title="Posts" />
 
             <div className="py-12">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 flex flex-col gap-4">
+                <div className="max-w-3xl mx-auto sm:px-6 lg:px-8 flex flex-col gap-4">
                     {page.props.permission.post_create && (
                         <form
                             className="bg-white overflow-hidden shadow-sm sm:rounded-lg p-4"

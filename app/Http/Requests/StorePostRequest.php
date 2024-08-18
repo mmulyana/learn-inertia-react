@@ -13,7 +13,7 @@ class StorePostRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return auth()->check() && Gate::allows('create', Posts::class);
+        return auth()->check();
     }
 
     /**
